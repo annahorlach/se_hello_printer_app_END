@@ -7,6 +7,7 @@ moje_imie = "Aleksander"
 moje_nazwisko = "Buczek"
 msg = "Hello World!"
 
+
 @app.route('/')
 def index():
     output = request.args.get('output')
@@ -14,6 +15,7 @@ def index():
         output = PLAIN
     return get_formatted(msg, moje_imie, moje_nazwisko,
                          output.lower())
+
 
 @app.route('/outputs')
 def supported_output():
