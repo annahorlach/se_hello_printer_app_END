@@ -5,11 +5,11 @@ lint:
 	flake8 hello_world test
 .PHONY: test 
 test:
-	PYTHONPATH=. py.test --verbose -s	
+	PYTHONPATH=. py.test --verbose -s
 test_smoke:
 	curl -s -o /dev/null -w "%{http_code}" --fail 127.0.0.1:5000
 run:
-	python main.py	
+	python main.py
 docker_build:
 		docker build -t hello-world-printer .
 docker_run: docker_build
@@ -17,14 +17,12 @@ docker_run: docker_build
 	 	  --name hello-world-printer-dev \
 		   -p 5000:5000 \
 		   -d hello-world-printer
-|
-if [ -z "${TRAVIS_TAG}" ]; then
-USERNAME=aleksanderbuczek
-TAG=$(USERNAME)/hello-world-printer:$TRAVIS_TAG
+	if [[ $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+.* ]]; then
+	USERNAME=aleksanderbuczek
+	TAG=$(USERNAME)/hello-world-printer:$TRAVIS_TAG
 docker_push: docker_build
 	@docker login --username $(USERNAME) --password $${DOCKER_PASSWORD}; \
 	docker tag hello-world-printer $(TAG); \
 	docker push $(TAG); \
 	docker logout;
-fi;
-
+	fi;
