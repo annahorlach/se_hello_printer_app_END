@@ -20,7 +20,7 @@ docker_run: docker_build
 		   
 if [ -z "${TRAVIS_TAG}" ]; then
 USERNAME=aleksanderbuczek
-TAG=$(USERNAME)/hello-world-printer
+TAG=$(USERNAME)/hello-world-printer:$TRAVIS_TAG
 docker_push: docker_build
 	@docker login --username $(USERNAME) --password $${DOCKER_PASSWORD}; \
 	docker tag hello-world-printer $(TAG); \
