@@ -18,7 +18,7 @@ docker_run: docker_build
 		   -p 5000:5000 \
 		   -d hello-world-printer
 	if [[ $TRAVIS_TAG =~ ^[0-9]+\.[0-9]+.* ]]; then
-	USERNAME=aleksanderbuczek
+	USERNAME=aleksanderbucze
 	TAG=$(USERNAME)/hello-world-printer:$TRAVIS_TAG
 docker_push: docker_build
 	@docker login --username $(USERNAME) --password $${DOCKER_PASSWORD}; \
